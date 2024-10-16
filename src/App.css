@@ -1,42 +1,124 @@
-#root {
-  max-width: 1280px;
+/* App.css */
+.app-container {
+  min-height: 100vh;
+  transition: colors 0.3s;
+  display: flex;
+}
+
+.app-container.dark {
+  background-color: #1a202c;
+  color: white;
+}
+
+.app-container.light {
+  background-color: #f7fafc;
+  color: black;
+}
+
+.main-content {
+  flex-grow: 1;
+}
+
+.container {
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 1rem;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.content-wrapper {
+  background-color: var(--background-color);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 56rem;
+  margin: 0 auto;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.content-wrapper.dark {
+  --background-color: #2d3748;
+}
+
+.content-wrapper.light {
+  --background-color: white;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.menu-button {
+  margin-right: 1rem;
+  padding: 0.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.app-title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #3182ce;
+}
+
+.theme-toggle {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.theme-button {
+  padding: 0.5rem;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  background-color: var(--button-bg);
+}
+
+.theme-button.dark {
+  --button-bg: #4a5568;
+}
+
+.theme-button.light {
+  --button-bg: #edf2f7;
+}
+
+.mode-switcher {
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.mode-button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  background-color: #e2e8f0;
+}
+
+.mode-button.active {
+  background-color: #3182ce;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0.5rem;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .content-wrapper {
+    padding: 1rem;
+  }
+  
+  .app-title {
+    font-size: 1.5rem;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
