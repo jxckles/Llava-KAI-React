@@ -1,10 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   font-family: 'Inter', sans-serif;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .container {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+}
+
+/* Mobile-specific styles */
+@media (max-width: 640px) {
+  .container {
+    padding: 0.5rem;
+  }
+  
+  .flex-col-mobile {
+    flex-direction: column;
+  }
+  
+  .w-full-mobile {
+    width: 100%;
+  }
+  
+  .p-2-mobile {
+    padding: 0.5rem;
+  }
+  
+  .gap-2-mobile {
+    gap: 0.5rem;
+  }
+}
+/* Overlay for side panel on mobile */
+@media (max-width: 768px) {
+  .side-panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 40;
   }
 }
