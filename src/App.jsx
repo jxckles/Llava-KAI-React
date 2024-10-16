@@ -91,7 +91,7 @@ function App() {
       <div className="container mx-auto p-4">
         <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow-xl p-6 w-full max-w-2xl mx-auto`}>
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold text-blue-600">AI Llava</h1>
+            <h1 className="text-3xl font-bold text-blue-600">KAI 3.0</h1>
             <div className="flex space-x-2">
               <button onClick={toggleCamera} className={`p-2 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'} rounded-full`}>
                 {isCameraOn ? <CameraOff size={24} /> : <Camera size={24} />}
