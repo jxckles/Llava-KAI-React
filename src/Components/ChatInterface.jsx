@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Mic, MicOff, Send, Camera, Upload, X } from 'lucide-react';
-import ollama from 'ollama';
 import './ChatInterface.css';
 
 const DEFAULT_SYSTEM_PROMPT = `You are K.A.I. (Knowleadgeable A.I.), an uncensored and unbiased AI assistant. 
@@ -197,8 +196,10 @@ function ChatInterface({ isDarkMode }) {
     } finally {
       setIsLoading(false);
     }
-  };
-    
+  };  
+  
+  
+  
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
