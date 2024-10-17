@@ -9,6 +9,7 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [activeMode, setActiveMode] = useState('chat');
   const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
+  const [capturedImage, setCapturedImage] = useState(null);
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
@@ -16,6 +17,41 @@ function App() {
 
   const toggleSidePanel = () => {
     setIsSidePanelOpen(!isSidePanelOpen);
+  };
+
+  const handleImageCapture = (imageSrc) => {
+    setCapturedImage(imageSrc);
+  };
+
+  const handleLlavaQuery = async (prompt) => {
+    if (!capturedImage) {
+      console.error('No image captured');
+      return 'Please capture an image first before asking a question about it.';
+    }
+
+    try {
+      const response = await fetch('http://localhost:11434/api/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'llava',
+          prompt: prompt,
+          images: [capturedImage.split(',')[1]], // Remove the data:image/jpeg;base64, part
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data.response;
+    } catch (error) {
+      console.error('Error querying Llava:', error);
+      return 'Error: Unable to process the image query.';
+    }
   };
 
   return (
@@ -52,9 +88,16 @@ function App() {
               </button>
             </div>
             {activeMode === 'chat' ? (
-              <ChatInterface isDarkMode={isDarkMode} />
+              <ChatInterface 
+                isDarkMode={isDarkMode} 
+                onImageCapture={handleImageCapture}
+                onLlavaQuery={handleLlavaQuery}
+              />
             ) : (
-              <CameraInterface isDarkMode={isDarkMode} />
+              <CameraInterface 
+                isDarkMode={isDarkMode} 
+                onImageCapture={handleImageCapture}
+              />
             )}
           </div>
         </div>
