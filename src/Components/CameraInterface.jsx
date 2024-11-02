@@ -3,13 +3,14 @@ import Webcam from 'react-webcam';
 import { Camera, CameraOff, RefreshCw, Mic, MicOff, Volume2, VolumeX } from 'lucide-react';
 import './CameraInterface.css';
 
-function CameraInterface({ isDarkMode }) {
+function CameraInterface({ isDarkMode, onImageCapture }) {
   const [isCameraOn, setIsCameraOn] = useState(true);
   const [facingMode, setFacingMode] = useState('user');
   const [isListening, setIsListening] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [transcript, setTranscript] = useState('');
   const [transcriptHistory, setTranscriptHistory] = useState([]);
+  const [capturedImage, setCapturedImage] = useState(null);
   
   const webcamRef = useRef(null);
   const recognitionRef = useRef(null);
@@ -74,6 +75,8 @@ function CameraInterface({ isDarkMode }) {
       setIsCameraOn(false);
     } else if (command.includes('turn on camera')) {
       setIsCameraOn(true);
+    } else if (command.includes('capture image')) {
+      captureImage();
     }
   };
 
@@ -89,6 +92,12 @@ function CameraInterface({ isDarkMode }) {
     }
   };
 
+  const captureImage = () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setCapturedImage(imageSrc);
+    onImageCapture(imageSrc);
+  };
+
   return (
     <div className="camera-interface">
       <div className="camera-container">
@@ -98,6 +107,7 @@ function CameraInterface({ isDarkMode }) {
             audio={false}
             facingMode={facingMode}
             className="webcam"
+            screenshotFormat="image/jpeg"
           />
         ) : (
           <div className="camera-off">
@@ -112,9 +122,14 @@ function CameraInterface({ isDarkMode }) {
         </button>
         
         {isCameraOn && (
-          <button onClick={switchCamera} className="control-button">
-            <RefreshCw size={24} />
-          </button>
+          <>
+            <button onClick={switchCamera} className="control-button">
+              <RefreshCw size={24} />
+            </button>
+            <button onClick={captureImage} className="control-button">
+              <Camera size={24} />
+            </button>
+          </>
         )}
 
         <button
@@ -148,6 +163,12 @@ function CameraInterface({ isDarkMode }) {
           </div>
         </div>
       </div>
+
+      {capturedImage && (
+        <div className="captured-image">
+          <img src={capturedImage} alt="Captured" />
+        </div>
+      )}
     </div>
   );
 }
